@@ -28,17 +28,11 @@ public class DiretorioControl {
         if (!diretorio.exists()) {
             diretorio.mkdirs();
         }
-
     }
 
-
     private void criarDiretorio(String nomeDiretorio) {
-        String diretorioDestino;
-        if (!diretrioDestino.isDirectory()) {
-            diretorioDestino = this.diretrioDestino.getParent();
-        } else {
-            diretorioDestino = this.diretrioDestino.getAbsolutePath();
-        }
+        String diretorioDestino = retornarTipoDoDiretorio(this.diretrioDestino);
+
         File diretorio = new File(diretorioDestino + "/" + nomeDiretorio);
         if (diretorio.exists()) {
             removerDiretorioEConteudo(diretorio);
@@ -58,12 +52,8 @@ public class DiretorioControl {
     }
 
     private void criarPastasBancos(String nomeDiretorio) {
-        String diretorioDestino;
-        if (!diretrioDestino.isDirectory()) {
-            diretorioDestino = this.diretrioDestino.getParent();
-        } else {
-            diretorioDestino = this.diretrioDestino.getAbsolutePath();
-        }
+        String diretorioDestino = retornarTipoDoDiretorio(this.diretrioDestino);
+
         for (String banco : PASTAS_BANCOS) {
             criarSubDiretorio(diretorioDestino + "/" + nomeDiretorio + "/" + banco);
         }
@@ -83,12 +73,7 @@ public class DiretorioControl {
     }
 
     private void criarDBChange(String nomeDiretorio) {
-        String diretorioDestino;
-        if (!diretrioDestino.isDirectory()) {
-            diretorioDestino = this.diretrioDestino.getParent();
-        } else {
-            diretorioDestino = this.diretrioDestino.getAbsolutePath();
-        }
+        String diretorioDestino = retornarTipoDoDiretorio(this.diretrioDestino);
 
         for (String banco : PASTAS_BANCOS) {
             File diretoriosIntancia = new File(diretorioDestino + "/" + nomeDiretorio + "/" + banco);
@@ -108,13 +93,7 @@ public class DiretorioControl {
     }
 
     private void criarDiretorioInstancia(String nomeInstancia, String nomeDiretorio) {
-
-        String diretorioDestino;
-        if (!diretrioDestino.isDirectory()) {
-            diretorioDestino = this.diretrioDestino.getParent();
-        } else {
-            diretorioDestino = this.diretrioDestino.getAbsolutePath();
-        }
+        String diretorioDestino = retornarTipoDoDiretorio(this.diretrioDestino);
         for (String banco : PASTAS_BANCOS) {
             criarSubDiretorio(diretorioDestino + "/" + nomeDiretorio + "/" + banco + "/" + nomeInstancia);
         }
@@ -136,12 +115,7 @@ public class DiretorioControl {
     }
 
     private void copiarScripts(String nomeInstancia, String nomeDiretorio, String nomeScript) {
-        String diretorioDestino;
-        if (!diretrioDestino.isDirectory()) {
-            diretorioDestino = this.diretrioDestino.getParent();
-        } else {
-            diretorioDestino = this.diretrioDestino.getAbsolutePath();
-        }
+        String diretorioDestino = retornarTipoDoDiretorio(this.diretrioDestino);
 
         for (String banco : PASTAS_BANCOS) {
             String destino = diretorioDestino + "/" + nomeDiretorio + "/" + banco + "/" + nomeInstancia + "/" + nomeScript;
@@ -184,6 +158,14 @@ public class DiretorioControl {
                     }
                 }
             }
+        }
+    }
+
+    private  String retornarTipoDoDiretorio(File diretorio){
+        if (!diretorio.isDirectory()) {
+            return diretorio.getParent();
+        } else {
+            return diretorio.getAbsolutePath();
         }
     }
 

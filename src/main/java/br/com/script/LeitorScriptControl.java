@@ -4,12 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.*;
 
 
 public class LeitorScriptControl {
@@ -20,16 +15,16 @@ public class LeitorScriptControl {
 
     }
 
-    public Map<String, List<Set>> ler() {
-        Map<String, List<Set>> listaScripts = new HashMap<String, List<Set>>();
+    public Map<String, List<Set<String>>> ler() {
+        Map<String, List<Set<String>>> listaScripts = new HashMap<>();
 
         if (!caminhoArquivo.isDirectory()) {
-            List scripts = new ArrayList();
+            List<Set<String>> scripts = new ArrayList<>();
             scripts.add(lerArquivo(caminhoArquivo.getAbsolutePath()));
             listaScripts.put(caminhoArquivo.getName().substring(0, caminhoArquivo.getName().lastIndexOf(".")), scripts);
         } else {
-            for (File file : caminhoArquivo.listFiles()) {
-                List scripts = new ArrayList();
+            for (File file : Objects.requireNonNull(caminhoArquivo.listFiles())) {
+                ArrayList<Set<String>> scripts = new ArrayList<>();
                 if (!file.isDirectory()) {
                     scripts.add(lerArquivo(file.getAbsolutePath()));
                     listaScripts.put(file.getName().substring(0, file.getName().lastIndexOf(".")), scripts);
@@ -41,7 +36,7 @@ public class LeitorScriptControl {
     }
 
     private Set<String> lerArquivo(String caminhoArquivo) {
-        Set scriptsDH4 = new TreeSet();
+        Set<String> scriptsDH4 = new TreeSet<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
             while (br.ready()) {
