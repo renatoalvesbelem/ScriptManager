@@ -14,7 +14,7 @@ import static br.com.properties.Properties.*;
 public class DiretorioControl {
     private File diretrioDestino;
 
-    public DiretorioControl(Map<String, List<Set>> listaScripts, String diretrioDestino) {
+    public DiretorioControl(Map<String, List<Set<String>>> listaScripts, String diretrioDestino) {
         this.diretrioDestino = new File(diretrioDestino);
         for (String diretorio : listaScripts.keySet()) {
             criarDiretorio(diretorio);
@@ -59,7 +59,7 @@ public class DiretorioControl {
         }
     }
 
-    private void criarCopiarDiretoriosInstancias(Map<String, List<Set>> listaScripts, String diretrioDestino) {
+    private void criarCopiarDiretoriosInstancias(Map<String, List<Set<String>>> listaScripts, String diretrioDestino) {
         for (Set<String> scripts : listaScripts.get(diretrioDestino)) {
             for (String script : scripts) {
                 String instancia = instanciaE(script);
